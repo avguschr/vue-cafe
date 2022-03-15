@@ -1,0 +1,95 @@
+:root {
+  --sherpa-blue: #00444f;
+  --elf-green: #068979;
+  --ocean-green: #56c69e;
+  --geyser: #d8e0e0;
+  --allports: #0074a3;
+}
+
+h1 {
+  color: var(--sherpa-blue);
+  font-family: "Work Sans", sans-serif;
+  font-weight: 700;
+  font-size: 3rem;
+}
+
+.but {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: var(--geyser);
+  border: none;
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-family: "Work Sans", sans-serif;
+  color: var(--sherpa-blue);
+  transition: box-shadow linear 0.1s;
+  font-weight: 700;
+}
+
+.but:hover {
+  box-shadow: -20px 20px 0 -17px #fff, 20px -20px 0 -17px #fff,
+    20px 20px 0 -20px var(--sherpa-blue), 0 0 0 2px var(--sherpa-blue);
+}
+
+.but:active {
+  background: var(--sherpa-blue);
+  color: #fff;
+  box-shadow: none;
+}
+
+.inp {
+    width: 100%;
+    border-radius: 10px;
+    padding: 8px 16px;
+    color: #fff;
+    border: none;
+    background-color: var(--ocean-green);
+    margin-bottom: 1rem;
+}
+
+.inp:active, .inp:focus {
+    outline: none;
+    background-color: var(--elf-green);
+    box-shadow: 0px -3px 31px -10px var(--ocean-green);
+}
+
+::placeholder {
+  color: #fff;
+}
+
+label {
+  font-family: "Work Sans", sans-serif;
+  font-size: 1.5rem;
+  color: var(--sherpa-blue);
+  margin-bottom: 0.3rem;
+}
+
+p {
+  font-size: 1.3rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-family: "Work Sans", sans-serif;
+}
+
+select {
+  width: 100%;
+  border-radius: 10px;
+  padding: 8px 16px;
+  color: #fff;
+  border: none;
+  background-color: var(--ocean-green);
+  margin-bottom: 1rem;
+  outline: none;
+}
+
+select:active, select:focus {
+  border: none;
+  outline: none;
+}
+
+select option:disabled{
+  color: var(--ocean-green);
+}
