@@ -46,10 +46,8 @@ export default {
     };
   },
   methods: {
-      ...mapActions({addUserAction: 'admin/addUser/addUser'}),
+      ...mapActions({addUserAction: 'admin/users/addUser'}),
       async addUser() {
-          console.log(this.role)
-          console.log(this.options.filter(opt => opt.value === +this.role))
           if (this.name || this.login || this.password || this.role) {
               const group = this.options.filter(opt => opt.value === +this.role)[0].text;
               
@@ -68,6 +66,7 @@ export default {
               this.role = ''
               this.show = false
           }
+          window.location.reload()
       },
     close() {
       this.show = false;

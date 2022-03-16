@@ -11,26 +11,84 @@
       <div>
         <p>{{ user.status }}</p>
         <p>{{ user.group }}</p>
-        <button @click="dismiss(user.id)" class="but">Dismiss</button>
+        <div class="d-flex flex-column">
+          <div>
+            <button @click="showInputAdd = !showInputAdd" class="but">Add</button>
+            <button @click="showInputRemove = !showInputRemove" class="but m-3">Remove</button>
+            <button @click="dismiss(user.id)" class="but">Dismiss</button>
+          </div>
+          <input
+          v-if="showInputAdd"
+            placeholder="Choose shift number"
+            class="inp"
+            type="number"
+            min="1"
+            :max="shifts.length"
+            v-model="shiftIdAdd"
+            required
+            @keypress.enter="addUser"
+          />
+          <input
+          v-if="showInputRemove"
+            placeholder="Choose shift number"
+            class="inp"
+            type="number"
+            min="1"
+            :max="shifts.length"
+            v-model="shiftIdRemove"
+            required
+            @keypress.enter="removeUser"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "user-component",
   props: ["id", "user"],
   data() {
     return {
       show: false,
+      showInputAdd: false,
+      showInputRemove: false,
+      shiftIdAdd: '',
+      shiftIdRemove: ''
     };
   },
   methods: {
-    ...mapActions({ dismiss: "admin/dismiss/dismiss" }),
+    ...mapActions({
+      dismiss: "admin/dismiss/dismiss",
+      getShifts: "admin/shifts/getShifts",
+      addUserShift: 'admin/addUserShift/addUserShift',
+      removeUserShift: 'admin/removeUserShift/removeUserShift'
+    }),
     close() {
       this.show = false;
+      this.showInputAdd = false
     },
+    async addUser() {
+      if (this.shiftIdAdd) {
+        this.addUserShift({shift_id: +this.shiftId, user_id: +this.id})
+        this.shiftIdAdd = ''
+        this.show = false
+      }
+    },
+    async removeUser() {
+      if (this.shiftIdRemove) {
+        this.removeUserShift({shift_id: +this.shiftIdRemove, user_id: +this.id})
+        this.shiftIdRemove = ''
+        this.show = false
+      }
+    }
+  },
+  computed: {
+    ...mapGetters({ shifts: "admin/shifts/shifts" }),
+  },
+  async created() {
+    await this.getShifts();
   },
 };
 </script>

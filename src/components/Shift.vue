@@ -1,26 +1,34 @@
 <template>
-  <div @click="changeStatus(!active)">
+  <div @click="changeStatus(id)">
     <div :class="$style.card">
       <h2>Shift {{ id }}</h2>
       <p>Start {{ start }}</p>
       <p>End {{ end }}</p>
-      <p v-if="active" >Active</p>
+      <p v-if="active">Active</p>
       <p v-else>Not active</p>
     </div>
   </div>
 </template>
 <script>
-// import {mapActions} from 'vuex'
+import { mapActions } from "vuex";
 export default {
   name: "shift-component",
   props: ["id", "start", "end", "active"],
   methods: {
-    //   ...mapActions({}),
-      async changeStatus(status) {
-          console.log(status)
-      },
-      
-  }
+    ...mapActions({
+      closeShift: "admin/closeShift/closeShift",
+      openShift: "admin/openShift/openShift",
+    }),
+    async changeStatus(id) {
+      if (this.active) {
+        await this.closeShift(id);
+        window.location.reload()
+      } else {
+        await this.openShift(id)
+        window.location.reload()
+      }
+    },
+  },
 };
 </script>
 <style module>

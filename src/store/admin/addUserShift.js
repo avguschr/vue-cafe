@@ -1,33 +1,27 @@
 import axios from "axios";
 import { host } from "./../index";
 
-const addUser = () => ({
+const addUserShift = () => ({
   namespaced: true,
-  state: {
-    users: [],
-  },
+  state: {},
   actions: {
-    async addUser(context, data) {
+    async addUserShift(context, object) {
       const headers = {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
       };
+      const data = { user_id: object.user_id };
+      const id = object.shift_id;
       await axios({
         method: "post",
         headers,
         data,
-        url: `${host}/api-cafe/user`,
+        url: `${host}/api-cafe/work-shift/${id}/user`,
       })
-        .then((result) => console.log(result.data.data))
+        .then((result) => console.log(result.data))
         .catch((e) => (this.error = e.message));
-      context.commit("addUser", data);
-    },
-  },
-  mutations: {
-    addUser(state, data) {
-      state.users.push(data);
     },
   },
 });
 
-export default addUser;
+export default addUserShift;

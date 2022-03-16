@@ -1,17 +1,23 @@
 import users from "./users";
-import addUser from "./addUser";
 import user from "./user";
 import dismiss from "./dismiss";
 import shifts from "./shifts";
+import closeShift from './closeShift';
+import openShift from './openShift';
+import addUserShift from './addUserShift';
+import removeUserShift from './removeUserShift';
 
 const admin = () => ({
   namespaced: true,
   modules: {
     users: users(),
-    addUser: addUser(),
     user: user(),
     dismiss: dismiss(),
-    shifts: shifts()
+    shifts: shifts(),
+    closeShift: closeShift(),
+    openShift: openShift(),
+    addUserShift: addUserShift(),
+    removeUserShift: removeUserShift()
   },
 });
 

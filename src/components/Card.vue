@@ -19,9 +19,11 @@ export default {
   },
   methods: {
     ...mapActions({ getUser: "admin/user/getUser" }),
-    openUser() {
-      this.$refs.user.show = true;
-      this.getUser(this.id);
+    async openUser() {
+      if (this.user) {
+        this.$refs.user.show = true;
+        await this.getUser(this.id);
+      }
     },
   },
   computed: {
