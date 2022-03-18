@@ -74,6 +74,12 @@ h2 {
   font-family: "Work Sans", sans-serif;
 }
 
+h3 {
+  font-size: 1.5rem;
+  font-family: "Work Sans", sans-serif;
+  color: var(--sherpa-blue);
+}
+
 select {
   width: 100%;
   border-radius: 10px;

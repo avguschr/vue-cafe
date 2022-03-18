@@ -10,11 +10,32 @@
       </div>
       <form action="" method="post">
         <label for="name">Name</label>
-        <input required placeholder="Enter name" v-model="name" class="inp" id="name" type="text" />
+        <input
+          required
+          placeholder="Enter name"
+          v-model="name"
+          class="inp"
+          id="name"
+          type="text"
+        />
         <label for="login">Login</label>
-        <input required placeholder="Enter login" v-model="login" class="inp" id="login" type="text" />
+        <input
+          required
+          placeholder="Enter login"
+          v-model="login"
+          class="inp"
+          id="login"
+          type="text"
+        />
         <label for="password">Password</label>
-        <input required placeholder="Enter password" v-model="password" class="inp" id="password" type="text" />
+        <input
+          required
+          placeholder="Enter password"
+          v-model="password"
+          class="inp"
+          id="password"
+          type="text"
+        />
         <label for="role">Role</label>
         <select required v-model="role" class="mb-4" name="role" id="role">
           <option value="1">Admin</option>
@@ -27,47 +48,47 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 export default {
-  name: "add-user",
+  name: "add-user-shift",
   data() {
     return {
       show: false,
-        name: '',
-        login: '',
-        password: '',
-        role: '',
-        options: [
-            { value: 3, text: 'Повар' },
-            { value: 2, text: 'Официант' },
-            { value: 1, text: 'Администратор' }
-        ],
-        body: {}
+      name: "",
+      login: "",
+      password: "",
+      role: "",
+      options: [
+        { value: 3, text: "Повар" },
+        { value: 2, text: "Официант" },
+        { value: 1, text: "Администратор" },
+      ],
+      body: {},
     };
   },
   methods: {
-      ...mapActions({addUserAction: 'admin/users/addUser'}),
-      async addUser() {
-          if (this.name || this.login || this.password || this.role) {
-              const group = this.options.filter(opt => opt.value === +this.role)[0].text;
-              
-              this.body = {
-                name: this.name,
-                surname: this.surname,
-                login: this.login,
-                password: this.password,
-                role_id: this.role,
-                group
-            }
-              await this.addUserAction(this.body)
-              this.name = ''
-              this.login = ''
-              this.password = ''
-              this.role = ''
-              this.show = false
-          }
-          window.location.reload()
-      },
+    ...mapActions({ addUserAction: "admin/users/addUser" }),
+    async addUser() {
+      if (this.name || this.login || this.password || this.role) {
+        const group = this.options.filter((opt) => opt.value === +this.role)[0]
+          .text;
+
+        this.body = {
+          name: this.name,
+          surname: this.surname,
+          login: this.login,
+          password: this.password,
+          role_id: this.role,
+          group,
+        };
+        await this.addUserAction(this.body);
+        this.name = "";
+        this.login = "";
+        this.password = "";
+        this.role = "";
+        this.show = false;
+      }
+    },
     close() {
       this.show = false;
     },

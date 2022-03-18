@@ -2,10 +2,10 @@ import users from "./users";
 import user from "./user";
 import dismiss from "./dismiss";
 import shifts from "./shifts";
-import closeShift from './closeShift';
-import openShift from './openShift';
-import addUserShift from './addUserShift';
-import removeUserShift from './removeUserShift';
+import closeShift from "./closeShift";
+import openShift from "./openShift";
+import addUserShift from "./addUserShift";
+import removeUserShift from "./removeUserShift";
 
 const admin = () => ({
   namespaced: true,
@@ -17,7 +17,7 @@ const admin = () => ({
     closeShift: closeShift(),
     openShift: openShift(),
     addUserShift: addUserShift(),
-    removeUserShift: removeUserShift()
+    removeUserShift: removeUserShift(),
   },
 });
 

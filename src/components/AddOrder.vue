@@ -5,57 +5,61 @@
       :class="$style.modal"
     >
       <div class="d-flex align-items-center justify-content-between mb-3">
-        <h2>Add a shift</h2>
+        <h2>Add an order</h2>
         <i @click="close" class="fa-solid fa-xmark"></i>
       </div>
       <form action="" method="post">
-        <label for="start">Start</label>
+        <label for="table">Table</label>
         <input
+          min="1"
           required
-          placeholder="Enter start"
-          v-model="start"
+          v-model="table"
           class="inp"
-          id="start"
-          type="datetime-local"
+          id="table"
+          type="number"
         />
-        <label for="end">End</label>
+        <label for="persons">Number of persons</label>
         <input
+          min="1"
           required
-          placeholder="Enter end"
-          v-model="end"
+          v-model="persons"
           class="inp"
-          id="end"
-          type="datetime-local"
+          id="persons"
+          type="number"
         />
-
-        <button @click.prevent="addShift" class="but">Add</button>
+        <button @click.prevent="addOrder" class="but">Add</button>
       </form>
     </div>
   </div>
 </template>
 <script>
 import { mapActions } from "vuex";
+
 export default {
-  name: "add-shift",
+  name: "add-order",
+  props: ["shift_id"],
   data() {
     return {
       show: false,
-      start: "",
-      end: "",
+      table: "",
+      persons: "",
       body: {},
     };
   },
   methods: {
-    ...mapActions({ addShiftAction: "admin/shifts/addShift" }),
-    async addShift() {
-      this.body = {
-        start: this.start.split("T").join(" "),
-        end: this.end.split("T").join(" "),
-      };
-      await this.addShiftAction(this.body);
-      this.start = "";
-      this.end = "";
-      this.show = false;
+    ...mapActions({ addOrderAction: "waiter/orders/addOrder" }),
+    async addOrder() {
+      if (this.table || this.persons) {
+        this.body = {
+          work_shift_id: this.shift_id,
+          table_id: this.table,
+          number_of_person: this.persons,
+        };
+        await this.addOrderAction(this.body);
+        this.table = "";
+        this.persons = "";
+        this.show = false;
+      }
     },
     close() {
       this.show = false;

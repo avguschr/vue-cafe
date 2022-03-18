@@ -3,9 +3,12 @@ import { host } from "./../index";
 
 const addUserShift = () => ({
   namespaced: true,
-  state: {},
+  state: {
+    error: "",
+  },
   actions: {
     async addUserShift(context, object) {
+      context.commit("errorNull");
       const headers = {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -19,8 +22,22 @@ const addUserShift = () => ({
         url: `${host}/api-cafe/work-shift/${id}/user`,
       })
         .then((result) => console.log(result.data))
-        .catch((e) => (this.error = e.message));
+        .catch((e) => {
+          this.error = e;
+          context.commit("error", this.error);
+        });
     },
+  },
+  mutations: {
+    error(state, error) {
+      state.error = error;
+    },
+    errorNull(state) {
+      state.error = "";
+    },
+  },
+  getters: {
+    error: (state) => state.error,
   },
 });
 

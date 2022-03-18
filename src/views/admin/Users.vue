@@ -1,5 +1,6 @@
 <template>
   <div>
+    <error v-if="error" :error="error" />
     <add-user ref="addUser" />
     <h1 class="text-center mb-5">Users</h1>
     <div class="container">
@@ -23,12 +24,14 @@
 import { mapActions, mapGetters } from "vuex";
 import Card from "../../components/Card.vue";
 import AddUser from "../../components/AddUser.vue";
+import Error from "@/components/Error.vue";
 
 export default {
   name: "users-component",
   components: {
     Card,
     AddUser,
+    Error,
   },
   methods: {
     ...mapActions({ getUsers: "admin/users/getUsers" }),
@@ -37,7 +40,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters({ users: "admin/users/users" }),
+    ...mapGetters({ users: "admin/users/users", error: "admin/users/error" }),
   },
   async created() {
     await this.getUsers();

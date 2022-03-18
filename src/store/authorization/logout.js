@@ -3,7 +3,7 @@ import { host } from "./../index";
 
 const logout = () => ({
   namespaced: true,
-  actions: () => ({
+  actions: {
     async logout(context) {
       const headers = {
         "Content-Type": "application/json",
@@ -14,13 +14,13 @@ const logout = () => ({
         .catch((e) => console.log(e));
       context.commit("delToken");
     },
-  }),
-  mutations: () => ({
+  },
+  mutations: {
     delToken(state) {
       state.token = "";
       localStorage.removeItem("token");
     },
-  }),
+  },
 });
 
 export default logout;

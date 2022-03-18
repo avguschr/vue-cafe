@@ -1,5 +1,5 @@
 import axios from "axios";
-import { host } from './../index';
+import { host } from "./../index";
 
 const closeShift = () => ({
   namespaced: true,

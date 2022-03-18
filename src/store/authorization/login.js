@@ -9,6 +9,7 @@ const login = () => ({
   },
   actions: {
     async login(context, data) {
+      context.commit("errorNull");
       const headers = { "Content-Type": "application/json" };
       await axios({
         method: "post",
@@ -18,9 +19,11 @@ const login = () => ({
       })
         .then((result) => {
           context.commit("setToken", result.data.data.user_token);
-          context.commit("addError", this.error);
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          this.error = e;
+          context.commit("error", this.error);
+        });
     },
   },
   mutations: {
@@ -28,12 +31,16 @@ const login = () => ({
       state.token = token;
       localStorage.setItem("token", token);
     },
-    addError(state, error) {
+    error(state, error) {
       state.error = error;
+    },
+    errorNull(state) {
+      state.error = "";
     },
   },
   getters: {
     getToken: (state) => state.token,
+    error: (state) => state.error,
   },
 });
 

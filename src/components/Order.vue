@@ -1,34 +1,33 @@
 <template>
   <div>
-    <user :user="user" ref="user" :id="id" />
-    <div @click="openUser" :class="$style.card">
-      <h2>{{ title }}</h2>
-      <p v-if="status === 'working'">Работает</p>
-      <p v-else>Уволен</p>
-      <p>{{ group }}</p>
+    <get-order ref="order" :order="getOrder" />
+    <div @click="openOrder" :class="$style.card">
+      <h2>Order {{ id }}</h2>
+      <p>Table {{ table }}</p>
+      <p>Workers: {{ workers }}</p>
+      <p>{{ status }}</p>
+      <p>{{ price }}$</p>
     </div>
   </div>
 </template>
 <script>
-import User from "./User";
 import { mapActions, mapGetters } from "vuex";
+import GetOrder from "./GetOrder";
 export default {
-  name: "card-component",
-  props: ["title", "status", "group", "id"],
+  name: "order-component",
+  props: ["id", "table", "workers", "status", "price"],
   components: {
-    User,
+    GetOrder,
   },
   methods: {
-    ...mapActions({ getUser: "admin/user/getUser" }),
-    async openUser() {
-      if (this.user) {
-        this.$refs.user.show = true;
-        await this.getUser(this.id);
-      }
+    ...mapActions({ getOrderAction: "waiter/order/getOrder" }),
+    async openOrder() {
+      this.$refs.order.show = true;
+      await this.getOrderAction(this.id);
     },
   },
   computed: {
-    ...mapGetters({ user: "admin/user/user" }),
+    ...mapGetters({ getOrder: "waiter/order/order" }),
   },
 };
 </script>

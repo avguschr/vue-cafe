@@ -1,6 +1,7 @@
 <template>
   <div>
-  <add-shift ref="addShift" />
+    <error v-if="error" :error="error" />
+    <add-shift ref="addShift" />
     <h1 class="text-center mb-5">Shifts</h1>
     <div class="container">
       <div :class="$style.add" class="d-flex align-items-center mb-5">
@@ -23,11 +24,13 @@
 import { mapActions, mapGetters } from "vuex";
 import Shift from "../../components/Shift";
 import AddShift from "../../components/AddShift";
+import Error from "@/components/Error.vue";
 export default {
   name: "shifts-component",
   components: {
     Shift,
-    AddShift
+    AddShift,
+    Error,
   },
   methods: {
     ...mapActions({ getShifts: "admin/shifts/getShifts" }),
@@ -36,7 +39,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters({ shifts: "admin/shifts/shifts" }),
+    ...mapGetters({
+      shifts: "admin/shifts/shifts",
+      error: "admin/shifts/error",
+    }),
   },
   async created() {
     await this.getShifts();

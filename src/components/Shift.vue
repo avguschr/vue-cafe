@@ -16,16 +16,14 @@ export default {
   props: ["id", "start", "end", "active"],
   methods: {
     ...mapActions({
-      closeShift: "admin/closeShift/closeShift",
-      openShift: "admin/openShift/openShift",
+      closeShift: "admin/shifts/closeShift",
+      openShift: "admin/shifts/openShift",
     }),
     async changeStatus(id) {
       if (this.active) {
         await this.closeShift(id);
-        window.location.reload()
       } else {
-        await this.openShift(id)
-        window.location.reload()
+        await this.openShift(id);
       }
     },
   },

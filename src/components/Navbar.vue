@@ -12,13 +12,10 @@
         <li v-if="!token" class="d-inline">
           <router-link to="/login">Log In</router-link>
         </li>
-          <li v-else class="d-inline">
+        <li v-else class="d-inline">
           <router-link to="/logout">Log Out</router-link>
         </li>
-        <li class="d-inline">
-          <router-link to="/login">Log In</router-link>
-        </li>
-        <li class="d-inline">
+        <li v-if="token" class="d-inline">
           <div class="dropdown show">
             <a
               class="dropdown-toggle"
@@ -28,14 +25,70 @@
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
-              style="background: var(--allports);"
+              style="background: var(--allports)"
             >
               Admin
             </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="background: var(--allports); border: none;">
+            <div
+              class="dropdown-menu"
+              aria-labelledby="dropdownMenuLink"
+              style="background: var(--allports); border: none"
+            >
               <router-link to="/users" class="dropdown-item">Users</router-link>
-              <router-link to="/shifts" class="dropdown-item">Shifts</router-link>
-              <a class="dropdown-item" href="#">Something else here</a>
+              <router-link to="/shifts" class="dropdown-item"
+                >Shifts</router-link
+              >
+            </div>
+          </div>
+        </li>
+        <li v-if="token" class="d-inline">
+          <div class="dropdown show">
+            <a
+              class="dropdown-toggle"
+              href="#"
+              role="button"
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              style="background: var(--allports)"
+            >
+              Waiter
+            </a>
+            <div
+              class="dropdown-menu"
+              aria-labelledby="dropdownMenuLink"
+              style="background: var(--allports); border: none"
+            >
+              <router-link to="/orders" class="dropdown-item"
+                >Orders</router-link
+              >
+            </div>
+          </div>
+        </li>
+
+        <li v-if="token" class="d-inline">
+          <div class="dropdown show">
+            <a
+              class="dropdown-toggle"
+              href="#"
+              role="button"
+              id="dropdownMenuLink"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              style="background: var(--allports)"
+            >
+              Cook
+            </a>
+            <div
+              class="dropdown-menu"
+              aria-labelledby="dropdownMenuLink"
+              style="background: var(--allports); border: none"
+            >
+              <router-link to="/active-orders" class="dropdown-item"
+                >Orders</router-link
+              >
             </div>
           </div>
         </li>
@@ -44,12 +97,15 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 export default {
   name: "navbar-component",
   computed: {
-    ...mapGetters({token: 'authorization/login/getToken'})
-  }
+    ...mapGetters({ tokener: "authorization/login/getToken" }),
+    token() {
+      return localStorage.getItem("token");
+    },
+  },
 };
 </script>
 <style module>
@@ -114,5 +170,4 @@ export default {
 .dropdown-menu.show {
   background: red;
 }
-
 </style>
