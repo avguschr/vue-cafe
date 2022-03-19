@@ -2,20 +2,22 @@
   <div>
     <error v-if="error" :error="error" />
     <add-shift ref="addShift" />
-    <h1 class="text-center mb-5">Shifts</h1>
-    <div class="container">
-      <div :class="$style.add" class="d-flex align-items-center mb-5">
-        <i @click="openAddShift" class="fa-solid fa-plus"></i>
-        <p @click="openAddShift" class="m-0">New shift</p>
-      </div>
-      <div v-for="(shift, index) in shifts" :key="index">
-        <shift
-          class="mb-3"
-          :id="shift.id"
-          :start="shift.start"
-          :end="shift.end"
-          :active="shift.active"
-        />
+    <div v-if="!error">
+      <h1 class="text-center mb-5">Shifts</h1>
+      <div class="container">
+        <div :class="$style.add" class="d-flex align-items-center mb-5">
+          <i @click="openAddShift" class="fa-solid fa-plus"></i>
+          <p @click="openAddShift" class="m-0">New shift</p>
+        </div>
+        <div v-for="(shift, index) in shifts" :key="index">
+          <shift
+            class="mb-3"
+            :id="shift.id"
+            :start="shift.start"
+            :end="shift.end"
+            :active="shift.active"
+          />
+        </div>
       </div>
     </div>
   </div>

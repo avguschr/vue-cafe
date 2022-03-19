@@ -2,20 +2,22 @@
   <div>
     <error v-if="error" :error="error" />
     <add-user ref="addUser" />
-    <h1 class="text-center mb-5">Users</h1>
-    <div class="container">
-      <div :class="$style.add" class="d-flex align-items-center mb-5">
-        <i @click="openAddUser" class="fa-solid fa-plus"></i>
-        <p @click="openAddUser" class="m-0">New user</p>
-      </div>
-      <div class="row row-cols-1" v-for="(user, index) in users" :key="index">
-        <card
-          class="col mb-3"
-          :id="user.id"
-          :title="user.name"
-          :status="user.status"
-          :group="user.group"
-        />
+    <div v-if="!error">
+      <h1 class="text-center mb-5">Users</h1>
+      <div class="container">
+        <div :class="$style.add" class="d-flex align-items-center mb-5">
+          <i @click="openAddUser" class="fa-solid fa-plus"></i>
+          <p @click="openAddUser" class="m-0">New user</p>
+        </div>
+        <div class="row row-cols-1" v-for="(user, index) in users" :key="index">
+          <card
+            class="col mb-3"
+            :id="user.id"
+            :title="user.name"
+            :status="user.status"
+            :group="user.group"
+          />
+        </div>
       </div>
     </div>
   </div>
